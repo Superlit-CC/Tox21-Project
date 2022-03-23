@@ -7,7 +7,7 @@
 
 from random import shuffle
 
-from tqdm import tqdm
+from tqdm import tqdm, tqdm_notebook
 import numpy as np
 import pandas as pd
 from collections import deque # collections 包含了一些特殊的容器，deque 双向队列
@@ -64,6 +64,8 @@ class net(nn.Module):
             # 2. 残差层：固定层 + input ，不加固定层就层数比较少，没必要有残差层
             if self.res_layer:
                 input = self.activation(self.constant_layers[i](input)) + input
+            else:
+                input = self.activation(self.constant_layers[i](input))
             # 3. Batch Norm层
             input = self.bat[i](input)
             # 4. Drop out层
@@ -132,7 +134,7 @@ class Trainer:
         minimum_val_loss = float('inf')
         df = self._creat_train_df()
 
-        for epoch in tqdm(range(self.epochs)):
+        for epoch in tqdm_notebook(range(self.epochs)):
             epoch_loss = 0
             self.model.train()
 

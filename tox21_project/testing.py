@@ -9,7 +9,7 @@
 import numpy as np 
 import pandas as pd 
 from sklearn.metrics import precision_recall_curve, roc_curve
-from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, balanced_accuracy_score, roc_auc_score,average_precision_score
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, balanced_accuracy_score, roc_auc_score, average_precision_score
 from tqdm import tqdm_notebook, tqdm
 import matplotlib.pyplot as plt
 
@@ -39,7 +39,7 @@ class panel_of_test:
             auprc = average_precision_score(self.y[:, i], y_scores[:, i], sample_weight=self.sample_weights[:, i])
             acc = accuracy_score(self.y[:, i], y_pred[:, i], sample_weight=self.sample_weights[:, i])
             bal_acc = balanced_accuracy_score(self.y[:, i], y_pred[:, i], sample_weight=self.sample_weights[:, i])
-            aucscore = roc_auc_score(self.y[:, i], y_pred[:, i], sample_weight=self.sample_weights[:, i])
+            aucscore = roc_auc_score(self.y[:, i], y_scores[:, i], sample_weight=self.sample_weights[:, i])
 
             res.loc[self.assays[i]] = [precision, recall, f1, auprc ,acc, bal_acc, aucscore]
         return res
